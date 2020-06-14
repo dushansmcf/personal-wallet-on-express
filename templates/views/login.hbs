@@ -16,7 +16,7 @@
           const messageTag = document.querySelector('#message');
           messageTag.textContent = message;
 
-          $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
+          $.post("/login",{user: user,password: pass}, function(data){
             if(data==='yes') {
                 messageTag.className = 'success-msg';
                 message = 'Login is successful!';
