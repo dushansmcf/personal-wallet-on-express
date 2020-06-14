@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{page_title}}</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+
+      $(document).ready(function(){
+        var user,pass;
+        $("#submitBtn").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          $("#submitBtn").prop('disabled', true);
+          var message = "Please wait!"
+          const messageTag = document.querySelector('#message');
+          messageTag.textContent = message;
+
+          $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
+            if(data==='yes') {
+                messageTag.className = 'success-msg';
+                message = 'Login is successful!';
+            } else {
+                messageTag.className = 'error-msg';
+                message = 'Incorrect Username or Password';
+            }
+            messageTag.textContent = message;
+            $("#submitBtn").prop('disabled', false);
+          });
+        });
+      });
+
+
+   /* $(document).ready(function(){
+      const loginForm = document.querySelector('form');
+      loginForm.addEventListener('submit', (e) => {
+        e.priventDefault();
+      })
+    });*/
+
+
+    /*
+    fetch('url goes here').then( (response) => {
+        response.json().then( (data) => {
+            console.log(data);
+        } );
+    } );
+    */
+
+    </script>
+</head>
+<body>
+
+    <div class="main-content">
+        {{>header}}
+
+        <h4>User Login</h4>
+        <p id="message"></p>
+        <input type="text" id="user" name="user" size="40"><br />
+        <input type="password" id="password" name="password" size="40"><br />
+        <input type="button" id="submitBtn" value="Submit"></input>
+    </div>
+    {{>footer}}
+
+</body>
+</html>
